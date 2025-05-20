@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class MyAnimation : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Animator animator;
+
+    private void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetMove(bool isMove)
     {
-        
+
+        animator.SetBool("IsMove", isMove);
     }
+
+    void TriggerJump()
+    {
+        animator.SetTrigger("IsJump");
+    }
+
 }
