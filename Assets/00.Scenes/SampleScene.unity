@@ -1085,7 +1085,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpPower: 0
+  jumpPower: 5
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2056060927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,7 +1135,19 @@ MonoBehaviour:
     m_ActionId: eb1456cb-91c6-4ffa-8124-74f9dfe781b8
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2056060926}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 833fb2a2-c760-4524-8fa4-ee16ed3d0141
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
@@ -1334,7 +1349,7 @@ GameObject:
   - component: {fileID: 6847203685388704071}
   - component: {fileID: 6847203685387705223}
   - component: {fileID: 8360479221173433121}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

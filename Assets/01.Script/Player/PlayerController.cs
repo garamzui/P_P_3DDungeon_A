@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,6 +43,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
     private Vector2 curMovementInput;
+    public LayerMask groundLayerMask;
+
+
 
     private Rigidbody rb;
     private MyAnimation anim;
@@ -62,6 +66,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        
     }
 
     //InputAction
@@ -90,10 +95,55 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
+        if (context.phase == InputActionPhase.Started&&IsGrounded())
         {
-            rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-            anim.TriggerJump();
+            StartCoroutine(Jump());
+        }
+    }
+
+    public IEnumerator Jump()
+    {
+       
+        anim.TriggerJump();
+        yield return new WaitForSeconds(0.3f); 
+          rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+    }
+    //오브젝트의 저런 방향, 위치를 계산하는 방법을 연습해야됨
+    //3D오브젝트의 점프체크할때 많이 쓰는 방법 4개의 의자다리처럼 레이쏘기
+    bool IsGrounded()
+    {
+        Ray[] rays = new Ray[4]
+            {
+                new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
+                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
+                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.01f), Vector3.down),
+                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.01f), Vector3.down)
+            };
+        for (int i = 0; i < rays.Length; i++)
+        {
+            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        Ray[] rays = new Ray[4]
+        {
+        new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+        new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
+        new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
+        new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
+        };
+
+        for (int i = 0; i < rays.Length; i++)
+        {
+            Gizmos.DrawLine(rays[i].origin, rays[i].origin + rays[i].direction * 0.1f);
         }
     }
 }
