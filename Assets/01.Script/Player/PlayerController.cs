@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
     public float minXLook;
     public float maxXLook;
     private float camCurXRot;
+   
+
+
+
     public float LookSensitivity;
     private Vector2 mouseDelta;
 
@@ -64,7 +68,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<MyAnimation>();
-        
+
     }
     private void Start()
     {
@@ -76,7 +80,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        
+
     }
     private void LateUpdate()
     {
@@ -105,7 +109,8 @@ public class PlayerController : MonoBehaviour
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
 
         transform.eulerAngles += new Vector3(0, mouseDelta.x * LookSensitivity, 0);
-        body.eulerAngles += new Vector3(-mouseDelta.y* LookSensitivity, 0 , 0);
+              
+        body.eulerAngles += new Vector3(-mouseDelta.y * LookSensitivity, 0, 0);
     }
     public void OnLoook(InputAction.CallbackContext context)
     {
@@ -124,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started&&IsGrounded())
+        if (context.phase == InputActionPhase.Started && IsGrounded())
         {
             StartCoroutine(Jump());
         }
@@ -132,10 +137,10 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Jump()
     {
-       
+
         anim.TriggerJump();
-        yield return new WaitForSeconds(0.3f); 
-          rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.3f);
+        rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
     }
     //오브젝트의 저런 방향, 위치를 계산하는 방법을 연습해야됨
     //3D오브젝트의 점프체크할때 많이 쓰는 방법 4개의 의자다리처럼 레이쏘기
@@ -150,7 +155,7 @@ public class PlayerController : MonoBehaviour
             };
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 1f, groundLayerMask))
+            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
                 return true;
             }
@@ -164,10 +169,10 @@ public class PlayerController : MonoBehaviour
 
         Ray[] rays = new Ray[4]
         {
-        new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
-        new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.01f), Vector3.down),
-        new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down),
-        new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.01f), Vector3.down)
+                 new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
+                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
+                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.01f), Vector3.down),
+                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.01f), Vector3.down)
         };
 
         for (int i = 0; i < rays.Length; i++)
