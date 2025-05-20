@@ -11,13 +11,13 @@ public class MyAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void SetMove(bool isMove)
+   public void SetMove(bool isMove)
     {
 
         animator.SetBool("IsMove", isMove);
     }
 
-    void TriggerJump()
+    public void TriggerJump()
     {
         animator.SetTrigger("IsJump");
     }
