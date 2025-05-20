@@ -46,6 +46,15 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayerMask;
 
 
+    [Header("Look")]
+    public Transform cameraContainer;
+    public float minXLook;
+    public float maxXLook;
+    private float camCurXRot;
+    public float LookSensitivity;
+    private Vector2 mouseDelta;
+
+    public Transform body;
 
     private Rigidbody rb;
     private MyAnimation anim;
@@ -55,6 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<MyAnimation>();
+        
     }
     private void Start()
     {
@@ -67,6 +77,10 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         
+    }
+    private void LateUpdate()
+    {
+        CameraLook();
     }
 
     //InputAction
@@ -84,6 +98,21 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    void CameraLook()
+    {
+        camCurXRot += mouseDelta.y * LookSensitivity;
+        camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
+        cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
+
+        transform.eulerAngles += new Vector3(0, mouseDelta.x * LookSensitivity, 0);
+        body.eulerAngles += new Vector3(-mouseDelta.y* LookSensitivity, 0 , 0);
+    }
+    public void OnLoook(InputAction.CallbackContext context)
+    {
+        mouseDelta = context.ReadValue<Vector2>();
+
+    }
+
     public void Move()
     {
         Vector3 move = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
@@ -121,7 +150,7 @@ public class PlayerController : MonoBehaviour
             };
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
+            if (Physics.Raycast(rays[i], 1f, groundLayerMask))
             {
                 return true;
             }
