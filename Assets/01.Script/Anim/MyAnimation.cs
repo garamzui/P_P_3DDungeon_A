@@ -20,6 +20,12 @@ public class MyAnimation : MonoBehaviour
     public void TriggerJump()
     {
         animator.SetTrigger("IsJump");
+
+    }
+    public void SetFall(bool isFall)
+    {   
+        
+        animator.SetBool("IsFall",isFall);
     }
 
 }

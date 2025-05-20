@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum STATE
+/*public enum STATE
 {
     IDLE,
     MOVE,
@@ -36,7 +36,7 @@ public class CharacterState
         }
 
     }
-}
+}*/
 public class PlayerController : MonoBehaviour
 {
     [Header("움직임관련스탯")]
@@ -80,7 +80,13 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-
+        if (rb.velocity.y != 0f)
+        {
+            anim.SetFall(!IsGrounded());
+            
+        }
+        else { return; }
+        
     }
     private void LateUpdate()
     {
@@ -129,18 +135,22 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded())
+        if (context.phase == InputActionPhase.Started && IsGrounded()&&!stopJump)
         {
             StartCoroutine(Jump());
         }
     }
-
+    bool stopJump = false;
     public IEnumerator Jump()
     {
-
+        stopJump = true;    
         anim.TriggerJump();
         yield return new WaitForSeconds(0.3f);
+        anim.SetFall(true);
         rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.3f);
+        
+        stopJump = false;
     }
     //오브젝트의 저런 방향, 위치를 계산하는 방법을 연습해야됨
     //3D오브젝트의 점프체크할때 많이 쓰는 방법 4개의 의자다리처럼 레이쏘기
@@ -148,10 +158,10 @@ public class PlayerController : MonoBehaviour
     {
         Ray[] rays = new Ray[4]
             {
-                new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
-                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
-                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.01f), Vector3.down),
-                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.01f), Vector3.down)
+                new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
+                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
+                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.05f), Vector3.down),
+                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.05f), Vector3.down)
             };
         for (int i = 0; i < rays.Length; i++)
         {
@@ -169,10 +179,10 @@ public class PlayerController : MonoBehaviour
 
         Ray[] rays = new Ray[4]
         {
-                 new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
-                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.01f), Vector3.down),
-                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.01f), Vector3.down),
-                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.01f), Vector3.down)
+                 new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
+                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
+                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.05f), Vector3.down),
+                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.05f), Vector3.down)
         };
 
         for (int i = 0; i < rays.Length; i++)
@@ -180,4 +190,25 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawLine(rays[i].origin, rays[i].origin + rays[i].direction * 0.1f);
         }
     }
+
+    public void HasteMoveSpeed()
+    {
+        StartCoroutine(Haste());
+    }
+
+    public IEnumerator Haste()
+    {
+        moveSpeed += 5f;
+        yield return new WaitForSeconds(5);
+        moveSpeed -= 5f;
+
+    }
+
+    public void SuperJump()
+    {
+        rb.AddForce(Vector2.up * 15f, ForceMode.Impulse);
+    }
+
+   
+   
 }
