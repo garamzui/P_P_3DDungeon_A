@@ -27,7 +27,7 @@ public class ItemObject : MonoBehaviour, IInteractable
         PlayerManager.Instance.Player.addItem?.Invoke();
         Destroy(gameObject);
     }
-
+// 밸류 못가져오고 있으므로 다시 보기 
     private void OnTriggerEnter(Collider other )
     {
         float value;
