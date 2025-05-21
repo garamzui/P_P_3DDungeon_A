@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ public interface IInteractable
 public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
-    
+     
     
 
     public string GetInteractPrompt()
@@ -28,5 +28,36 @@ public class ItemObject : MonoBehaviour, IInteractable
         Destroy(gameObject);
     }
 
+    private void OnTriggerEnter(Collider other )
+    {
+        float value;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (CompareTag("HP"))
+            {
+                value = PlayerManager.Instance.Player.condition.health.passiveValue;
+                PlayerManager.Instance.Player.condition.GetInstantItem(value);
+            }
+            else if (CompareTag("STA"))
+            {
+                value = PlayerManager.Instance.Player.condition.stamina.passiveValue;
+                PlayerManager.Instance.Player.condition.GetInstantItem(value);
+            }
+            else if (CompareTag("JUMP"))
+            {
+                value = PlayerManager.Instance.PlayerController.JumpPower;
+                PlayerManager.Instance.PlayerController.GetInstantItem(value);
+            }
+            else if (CompareTag("SPEED"))
+            {
+                value = PlayerManager.Instance.PlayerController.MoveSpeed;
+                PlayerManager.Instance.PlayerController.GetInstantItem(value);
+            }
+
+           
+            
+            OnInteract();
+        }
+    }
 
 }

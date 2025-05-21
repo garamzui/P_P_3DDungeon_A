@@ -8,7 +8,7 @@ public enum ItemType
 {
    Equipable,
     Consumable,
-    InstanceConsum
+    Instant
     
 }
 public enum ConsumableType

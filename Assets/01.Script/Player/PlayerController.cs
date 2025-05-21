@@ -38,8 +38,11 @@ public class CharacterState
 }*/
 public class PlayerController : MonoBehaviour
 {
-    [Header("움직임관련스탯")] [SerializeField] private float moveSpeed;
+    [Header("움직임관련스탯")] 
+    [SerializeField] private float moveSpeed;
+    public float MoveSpeed {get { return moveSpeed; }}
     [SerializeField] private float jumpPower;
+    public float JumpPower {get {return jumpPower;}}
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
 
@@ -215,5 +218,18 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * 15f, ForceMode.Impulse);
     }
     
+    
+    public void GetInstantItem(float value)
+    {
+        StartCoroutine(InstantEffect(value));
+    }
+
+    IEnumerator InstantEffect(float value)
+    {
+        float defaultvalue = value;
+        value *= 2;
+        yield return new WaitForSeconds(10);
+        value = defaultvalue;
+    }
    
 }

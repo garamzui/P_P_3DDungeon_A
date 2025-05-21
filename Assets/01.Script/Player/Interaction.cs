@@ -19,7 +19,7 @@ public class Interaction : MonoBehaviour
     private Camera camera;
 
     private UIQuickBoard UIQ;
-
+    
     private void Awake()
     {
         UIQ = FindAnyObjectByType<UIQuickBoard>();
@@ -67,7 +67,19 @@ public class Interaction : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        ItemObject Obj;
+        bool dataFound;
+        if (curInteractableGameObject != null)
+        {
+            Obj = curInteractableGameObject.GetComponent<ItemObject>();
+            dataFound = true;
+        }
+        else
+        {
+            return;
+        }
+       if(dataFound) 
+       { if (context.phase == InputActionPhase.Started && curInteractable != null&&Obj.data.type == ItemType.Consumable)
         {
             if (UIQ.IsSlotFull())
             {
@@ -80,6 +92,9 @@ public class Interaction : MonoBehaviour
             curInteractable = null;
             promptText.gameObject.SetActive(false);
         }
+        
+       }
+     
     }
     
     IEnumerator SlotFullWarning()
