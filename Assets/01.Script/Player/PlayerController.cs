@@ -147,6 +147,7 @@ public class PlayerController : MonoBehaviour
         anim.TriggerJump();
         rb.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.3f);
+        
         anim.SetFall(true);
         rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         yield return new WaitForSeconds(0.3f);
