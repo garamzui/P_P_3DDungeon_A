@@ -1,19 +1,65 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-    public class PlayerCondition : MonoBehaviour
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerCondition : MonoBehaviour
 {
     public UICondition uiCondition;
+   
+    
+    
+   public  Condition health
+    {
+        get { return uiCondition.health; }
+    }
 
-    Condition health { get {  return uiCondition.health; } }
-    Condition stamina { get { return uiCondition.stamina; } }
+    public Condition stamina
+    {
+        get { return uiCondition.stamina; }
+    }
 
+    private void Awake()
+    {
         
+    }
 
-        void Update()
+    void Update()
     {
         stamina.Add(stamina.passiveValue * Time.deltaTime);
         health.Add(health.passiveValue * Time.deltaTime);
+
+        if (health.curValue <= 0)
+        {
+            OnDie();
+        }
+        
+    }
+
+    public void StaminaForJump()
+    {
+        stamina.Substrack(stamina.consumeValue);
+    }
+    
+    
+    private void OnDie()
+    {
+        Debug.Log("죽었다");
+        StartCoroutine(Die());
+    }
+
+    private IEnumerator Die()
+    {
+        //애니메이션 넣기
+        yield return new WaitForSeconds(1);
+        
+        yield return new WaitForSeconds(1);
+        
+    }
+
+    public void Resurrection()
+    {
+        health.curValue = health.maxValue;
     }
 }

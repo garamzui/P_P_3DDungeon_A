@@ -1,4 +1,3 @@
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -39,20 +38,16 @@ public class CharacterState
 }*/
 public class PlayerController : MonoBehaviour
 {
-    [Header("움직임관련스탯")]
-    [SerializeField] private float moveSpeed;
+    [Header("움직임관련스탯")] [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
 
 
-    [Header("Look")]
-    public Transform cameraContainer;
+    [Header("Look")] public Transform cameraContainer;
     public float minXLook;
     public float maxXLook;
     private float camCurXRot;
-   
-
 
 
     public float LookSensitivity;
@@ -64,18 +59,22 @@ public class PlayerController : MonoBehaviour
     private MyAnimation anim;
     private Vector2 inputDirection;
 
+
+    private PlayerCondition pCondition;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<MyAnimation>();
-
+        pCondition = GetComponent<PlayerCondition>();
     }
+
     private void Start()
     {
         //커서 움직임 막아주는 코드
         Cursor.lockState = CursorLockMode.Locked;
-
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -83,11 +82,13 @@ public class PlayerController : MonoBehaviour
         if (rb.velocity.y != 0f)
         {
             anim.SetFall(!IsGrounded());
-            
         }
-        else { return; }
-        
+        else
+        {
+            return;
+        }
     }
+
     private void LateUpdate()
     {
         CameraLook();
@@ -106,8 +107,8 @@ public class PlayerController : MonoBehaviour
             curMovementInput = Vector2.zero;
             anim.SetMove(false);
         }
-
     }
+
     void CameraLook()
     {
         camCurXRot += mouseDelta.y * LookSensitivity;
@@ -115,13 +116,13 @@ public class PlayerController : MonoBehaviour
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
 
         transform.eulerAngles += new Vector3(0, mouseDelta.x * LookSensitivity, 0);
-              
+
         body.eulerAngles += new Vector3(-mouseDelta.y * LookSensitivity, 0, 0);
     }
+
     public void OnLoook(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
-
     }
 
     public void Move()
@@ -135,36 +136,39 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded()&&!stopJump)
+        if (context.phase == InputActionPhase.Started && IsGrounded() && !stopJump && (pCondition.stamina.curValue >= -pCondition.stamina.consumeValue)) 
         {
             StartCoroutine(Jump());
         }
     }
+
     bool stopJump = false;
+
     public IEnumerator Jump()
     {
-        stopJump = true;    
+        stopJump = true;
         anim.TriggerJump();
         rb.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.3f);
-        
+        pCondition.StaminaForJump();
         anim.SetFall(true);
         rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         yield return new WaitForSeconds(0.3f);
-        
+
         stopJump = false;
     }
+
     //오브젝트의 저런 방향, 위치를 계산하는 방법을 연습해야됨
     //3D오브젝트의 점프체크할때 많이 쓰는 방법 4개의 의자다리처럼 레이쏘기
     bool IsGrounded()
     {
         Ray[] rays = new Ray[4]
-            {
-                new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
-                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
-                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.05f), Vector3.down),
-                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.05f), Vector3.down)
-            };
+        {
+            new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.05f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.05f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.05f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.05f), Vector3.down)
+        };
         for (int i = 0; i < rays.Length; i++)
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
@@ -172,19 +176,20 @@ public class PlayerController : MonoBehaviour
                 return true;
             }
         }
-        return false;
 
+        return false;
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
 
         Ray[] rays = new Ray[4]
         {
-                 new Ray(transform.position+(transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
-                new Ray(transform.position+(-transform.forward*0.2f)+(transform.up*0.05f), Vector3.down),
-                new Ray(transform.position+(transform.right*0.2f)+(transform.up*0.05f), Vector3.down),
-                new Ray(transform.position+(-transform.right*0.2f)+(transform.up*0.05f), Vector3.down)
+            new Ray(transform.position + (transform.forward * 0.2f) + (transform.up * 0.05f), Vector3.down),
+            new Ray(transform.position + (-transform.forward * 0.2f) + (transform.up * 0.05f), Vector3.down),
+            new Ray(transform.position + (transform.right * 0.2f) + (transform.up * 0.05f), Vector3.down),
+            new Ray(transform.position + (-transform.right * 0.2f) + (transform.up * 0.05f), Vector3.down)
         };
 
         for (int i = 0; i < rays.Length; i++)
@@ -203,14 +208,12 @@ public class PlayerController : MonoBehaviour
         moveSpeed += 5f;
         yield return new WaitForSeconds(5);
         moveSpeed -= 5f;
-
     }
 
     public void SuperJump()
     {
         rb.AddForce(Vector2.up * 15f, ForceMode.Impulse);
     }
-
-   
+    
    
 }

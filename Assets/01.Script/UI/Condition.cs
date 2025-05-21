@@ -9,6 +9,7 @@ public class Condition : MonoBehaviour
     public float startValue;
     public float maxValue;
     public float passiveValue;
+    public float consumeValue;
     public Image uiBar;
 
     private void Start()
@@ -30,13 +31,16 @@ public class Condition : MonoBehaviour
 
     public void Add(float value)
     {
-        curValue += Mathf.Min(curValue + value, maxValue);
+        curValue = Mathf.Min(curValue + value, maxValue);
     }
 
     public void Substrack(float value)
     { 
-        curValue -= Mathf.Max(curValue+ value,0);
+        curValue = Mathf.Max(curValue+ value,0);
     }
-
+    public void Die()
+    {
+        Debug.Log("죽었다");
+    }
 
 }

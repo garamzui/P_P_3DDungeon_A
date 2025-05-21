@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -10,15 +9,13 @@ public class PlayerManager : MonoBehaviour
     {
         get
         {
-
             if (instance == null)
             {
                 instance = new GameObject("PlayerManager").AddComponent<PlayerManager>();
             }
+
             return instance;
         }
-
-
     }
 
     public Player player;
@@ -28,6 +25,7 @@ public class PlayerManager : MonoBehaviour
         get { return player; }
         set { player = value; }
     }
+
     private void Awake()
     {
         if (instance == null)
@@ -42,14 +40,13 @@ public class PlayerManager : MonoBehaviour
                 Destroy(gameObject);
         }
     }
+
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 }
