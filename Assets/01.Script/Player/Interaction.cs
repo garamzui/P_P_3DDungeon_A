@@ -39,7 +39,7 @@ public class Interaction : MonoBehaviour
                     curInteractableGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
                     //프롬포트에 출력해줘라/
-                    SetPriomptText();
+                    SetPromptText();
                 }
             }
             else
@@ -51,7 +51,7 @@ public class Interaction : MonoBehaviour
         }
 
     }
-    private void SetPriomptText()
+    private void SetPromptText()
     {
         promptText.gameObject.SetActive(true);
         promptText.text = curInteractable.GetInteractPrompt();
