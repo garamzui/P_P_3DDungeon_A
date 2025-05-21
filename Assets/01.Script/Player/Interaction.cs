@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,6 +17,13 @@ public class Interaction : MonoBehaviour
 
     public TextMeshProUGUI promptText;
     private Camera camera;
+
+    private UIQuickBoard UIQ;
+
+    private void Awake()
+    {
+        UIQ = FindAnyObjectByType<UIQuickBoard>();
+    }
 
     void Start()
     {
@@ -61,10 +69,25 @@ public class Interaction : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
+            if (UIQ.IsSlotFull())
+            {
+                StartCoroutine(SlotFullWarning());
+                
+                return;
+            }
             curInteractable.OnInteract();
             curInteractableGameObject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);
         }
+    }
+    
+    IEnumerator SlotFullWarning()
+    {
+        promptText.gameObject.SetActive(true);
+        promptText.text = "가방이 가득 찼습니다.";
+        yield return new WaitForSeconds(1f);
+        promptText.gameObject.SetActive(false);
+        promptText.text = string.Empty;
     }
 }

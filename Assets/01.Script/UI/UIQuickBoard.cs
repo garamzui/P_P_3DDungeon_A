@@ -26,8 +26,6 @@ public class UIQuickBoard : MonoBehaviour
     {
         controller = PlayerManager.Instance.Player.controller;
         condition = PlayerManager.Instance.Player.condition;
-       
-
         PlayerManager.Instance.Player.addItem += AddItem;
         slots = new ItemSlot[slotPanel.childCount];
 
@@ -70,10 +68,32 @@ public class UIQuickBoard : MonoBehaviour
             PlayerManager.Instance.Player.itemData = null;
             return;
         }
-      
-      
-        PlayerManager.Instance.Player.itemData = null;
         
+
+        return;
+        
+        
+
+    }
+
+   public bool IsSlotFull()
+    {
+        int full = 0;
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item != null)
+            {
+                full++;
+            }
+           
+        }
+
+        if (full == slots.Length)
+        {
+            return true;
+        }
+
+        return false;
 
     }
 
