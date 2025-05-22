@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -257,6 +258,13 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5);
         jumpPower -= 5f;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "JumpScar")
+            rb.AddForce(Vector2.up * jumpPower*2.5f, ForceMode.Impulse);
+    }
+
     
-    
+    //tps전환 시 레이 길이, 카메라 컨테이너 위치 바꾸기
 }
