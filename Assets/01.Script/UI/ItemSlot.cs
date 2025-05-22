@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-    public ItemData item;
+    public ItemData itemData;
     public Image icon;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI slotNumber;
@@ -20,13 +19,13 @@ public class ItemSlot : MonoBehaviour
     public void Set()
     { 
         icon.gameObject.SetActive(true);
-        icon.sprite = item.icon;
-       itemNameText.text = item.displayName;
+        icon.sprite = itemData.icon;
+       itemNameText.text = itemData.displayName;
     }
 
     public void Clear()
     {
-        item = null;
+        itemData = null;
         icon.gameObject.SetActive(false);
         itemNameText.text = string.Empty;
     }

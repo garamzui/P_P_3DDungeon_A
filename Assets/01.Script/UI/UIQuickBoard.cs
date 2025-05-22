@@ -3,6 +3,19 @@ using UnityEngine;
 
 public class UIQuickBoard : MonoBehaviour
 {
+    public static UIQuickBoard Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+    
     public ItemSlot[] slots;
 
    
@@ -12,7 +25,7 @@ public class UIQuickBoard : MonoBehaviour
     private PlayerController controller;
     private PlayerCondition condition;
 
-    ItemData selectedItem;
+    ItemData data;
     int selectedItemIndex = 0;
 
     int curEquipIndex;
@@ -40,7 +53,7 @@ public class UIQuickBoard : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].item != null)
+            if (slots[i].itemData != null)
             {
                 slots[i].Set();
             }
@@ -50,6 +63,8 @@ public class UIQuickBoard : MonoBehaviour
             }
         }
     }
+    
+    
     void AddItem()
     {
         ItemData data = PlayerManager.Instance.Player.itemData;
@@ -60,7 +75,7 @@ public class UIQuickBoard : MonoBehaviour
 
         if (emptySlot != null)
         {
-            emptySlot.item = data;
+            emptySlot.itemData = data;
            
             UpdateUI();
             PlayerManager.Instance.Player.itemData = null;
@@ -79,7 +94,7 @@ public class UIQuickBoard : MonoBehaviour
         int full = 0;
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].item != null)
+            if (slots[i].itemData != null)
             {
                 full++;
             }
@@ -98,15 +113,23 @@ public class UIQuickBoard : MonoBehaviour
     ItemSlot GetEmptySlot()
     {
         for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].item == null)
+        { 
+            if (slots[i].itemData == null)
             {
                 return slots[i];
             }
         }
         return null;
     }
-    
-    
+
+    public ItemSlot ChooseSlot(int slotIdx)
+    {
+     
+        
+        return slots[slotIdx];
+
+
+    }
+
 }
 

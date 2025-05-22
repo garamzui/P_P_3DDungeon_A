@@ -208,13 +208,13 @@ public class PlayerController : MonoBehaviour
             switch (context.control.name)
             {
                 case "1":
-                    
+                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name)-1   );
                     break;
                 case "2":
-                    
+                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name)-1   );
                     break;
                 case "3":
-                    
+                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name)-1   );
                     break;
                 
                 

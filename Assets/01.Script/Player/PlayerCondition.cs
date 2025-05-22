@@ -1,16 +1,15 @@
 using System;
 using System.Collections;
-
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerCondition : MonoBehaviour
 {
     public UICondition uiCondition;
-   
-    
-    
-   public  Condition health
+
+
+    public Condition health
     {
         get { return uiCondition.health; }
     }
@@ -20,10 +19,6 @@ public class PlayerCondition : MonoBehaviour
         get { return uiCondition.stamina; }
     }
 
-    private void Awake()
-    {
-        
-    }
 
     void Update()
     {
@@ -34,15 +29,14 @@ public class PlayerCondition : MonoBehaviour
         {
             OnDie();
         }
-        
     }
 
     public void StaminaForJump()
     {
         stamina.Substrack(stamina.consumeValue);
     }
-    
-    
+
+
     private void OnDie()
     {
         Debug.Log("죽었다");
@@ -53,9 +47,8 @@ public class PlayerCondition : MonoBehaviour
     {
         //애니메이션 넣기
         yield return new WaitForSeconds(1);
-        
+
         yield return new WaitForSeconds(1);
-        
     }
 
     public void Resurrection()
@@ -63,29 +56,46 @@ public class PlayerCondition : MonoBehaviour
         health.curValue = health.maxValue;
     }
 
-    public void GetInstantItem(Condition condition,float time)
+    public void GetInstantItem(Condition condition, float time)
     {
-        StartCoroutine(InstantEffect(condition,time));
+        StartCoroutine(InstantEffect(condition, time));
     }
 
     IEnumerator InstantEffect(Condition value, float time)
     {
-       
-        value.passiveValue *= 2; Debug.Log("증가");
-        
+        value.passiveValue *= 2;
+        Debug.Log("증가");
+
         yield return new WaitForSeconds(time);
-        value.passiveValue /= 2;Debug.Log("원상복구");
-
+        value.passiveValue /= 2;
+        Debug.Log("원상복구");
     }
 
-    public void UseConsumableItem(Condition condition, float time)
+    public void UseConsumableItem(int slotIdx)
     {
-        
-        StartCoroutine(InstantEffect(condition,time));
-        
+        if (UIQuickBoard.Instance.ChooseSlot(slotIdx).itemData != null)
+        {
+            if (UIQuickBoard.Instance.ChooseSlot(slotIdx).itemData.dropPrefab.CompareTag("C_hp"))
+            {
+                StartCoroutine(InstantEffect(PlayerManager.Instance.Player.condition.health,
+                    UIQuickBoard.Instance.ChooseSlot(slotIdx).itemData.buffTime));
+                UIQuickBoard.Instance.ChooseSlot(slotIdx).Clear();
+            }
+
+            else if (UIQuickBoard.Instance.ChooseSlot(slotIdx).itemData.dropPrefab.CompareTag("C_sta"))
+            {
+                StartCoroutine(InstantEffect(PlayerManager.Instance.Player.condition.stamina,
+                    UIQuickBoard.Instance.ChooseSlot(slotIdx).itemData.buffTime));
+                UIQuickBoard.Instance.ChooseSlot(slotIdx).Clear();
+            }
+
+            else if (UIQuickBoard.Instance.ChooseSlot(slotIdx).itemData.dropPrefab.CompareTag("C_speed"))
+            {
+                PlayerManager.Instance.player.controller.UseConsumableItem(PlayerManager.Instance.player.controller
+                    .Haste());
+                UIQuickBoard.Instance.ChooseSlot(slotIdx).Clear();
+            }
+        }
+       
     }
-
-   
-
-
 }

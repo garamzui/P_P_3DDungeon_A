@@ -33,6 +33,7 @@ public class ItemData : ScriptableObject
     public ItemType type;
     public Sprite icon;
     public float buffTime;
+    public float recoveryamount;
     public GameObject dropPrefab;
     
     
