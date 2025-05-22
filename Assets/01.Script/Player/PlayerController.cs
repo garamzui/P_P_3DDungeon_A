@@ -201,9 +201,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
+    public void OnQuickSlot(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            switch (context.control.name)
+            {
+                case "1":
+                    
+                    break;
+                case "2":
+                    
+                    break;
+                case "3":
+                    
+                    break;
+                
+                
+                
+            }
 
-    
+            
+        }
+    }
+
+
 
     public void SuperJumpScarffold()
     {
@@ -211,11 +233,16 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void GetInstantItem(IEnumerator a)
+    public void GetInstantItem(IEnumerator corutine)
     {
-        StartCoroutine(a);
+        StartCoroutine(corutine);
     }
-
+    public void UseConsumableItem(IEnumerator corutine)
+    {
+        
+        StartCoroutine(corutine);
+        
+    }
     
     public IEnumerator Haste()
     {
@@ -230,4 +257,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5);
         jumpPower -= 5f;
     }
+    
+    
 }

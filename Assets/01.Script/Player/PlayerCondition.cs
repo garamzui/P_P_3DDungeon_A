@@ -78,6 +78,13 @@ public class PlayerCondition : MonoBehaviour
 
     }
 
+    public void UseConsumableItem(Condition condition, float time)
+    {
+        
+        StartCoroutine(InstantEffect(condition,time));
+        
+    }
+
    
 
 

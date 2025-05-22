@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ItemSlot : MonoBehaviour
 {
     public ItemData item;
-    public RawImage icon;
+    public Image icon;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI slotNumber;
 
@@ -20,7 +20,7 @@ public class ItemSlot : MonoBehaviour
     public void Set()
     { 
         icon.gameObject.SetActive(true);
-        /*icon.sprite = item.icon;*/
+        icon.sprite = item.icon;
        itemNameText.text = item.displayName;
     }
 

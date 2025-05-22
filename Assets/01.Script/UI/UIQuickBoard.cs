@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
+
 public class UIQuickBoard : MonoBehaviour
 {
     public ItemSlot[] slots;
@@ -66,11 +64,11 @@ public class UIQuickBoard : MonoBehaviour
            
             UpdateUI();
             PlayerManager.Instance.Player.itemData = null;
-            return;
+          
         }
         
 
-        return;
+        
         
         
 
@@ -108,5 +106,7 @@ public class UIQuickBoard : MonoBehaviour
         }
         return null;
     }
+    
+    
 }
 

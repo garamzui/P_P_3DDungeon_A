@@ -8,6 +8,9 @@ TagManager:
   - STA
   - JUMP
   - SPEED
+  - C_hp
+  - C_sta
+  - C_speed
   layers:
   - Default
   - TransparentFX

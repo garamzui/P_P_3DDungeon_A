@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Item_HPpotion
   m_EditorClassIdentifier: 
   displayName: "\uCCB4\uB825 \uBB3C\uC57D"
-  description: "\uCCB4\uB825 \uC989\uC2DC \uD68C\uBCF5"
+  description: "\uCCB4\uB825\uD68C\uBCF5\uB7C9\uC774 \uC7A0\uC2DC \uC99D\uAC00\uD569\uB2C8\uB2E4."
   type: 1
   icon: {fileID: 21300000, guid: e12e1a0e4a7453c42932e826264d0473, type: 3}
+  buffTime: 5
   dropPrefab: {fileID: 8457893906044054999, guid: 15f409b8c3b7231439dcd002d93cca9d, type: 3}
   canStack: 0
   maxStackAmount: 0

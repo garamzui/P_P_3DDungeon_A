@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Item_Speed
   m_EditorClassIdentifier: 
   displayName: "\uAC00\uC18D"
-  description: "\uC774\uB3D9\uC18D\uB3C4\uB97C \uC7A0\uC2DC\uB3D9\uC548 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4"
+  description: "\uC774\uB3D9\uC18D\uB3C4\uAC00 \uC7A0\uC2DC \uC99D\uAC00\uD569\uB2C8\uB2E4."
   type: 2
   icon: {fileID: 0}
+  buffTime: 0
   dropPrefab: {fileID: 0}
   canStack: 0
   maxStackAmount: 0
