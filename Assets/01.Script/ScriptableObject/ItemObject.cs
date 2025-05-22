@@ -68,7 +68,7 @@ public class ItemObject : MonoBehaviour, IInteractable
 
            
             
-            OnInteract();
+            Destroy(gameObject);
         }
     }
 
