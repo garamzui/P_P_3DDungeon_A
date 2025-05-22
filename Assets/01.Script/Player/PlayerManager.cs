@@ -26,12 +26,8 @@ public class PlayerManager : MonoBehaviour
         set { player = value; }
     }
 
-    public PlayerController playerController;
-    public PlayerController PlayerController
-    {
-        get { return playerController; }
-        set { playerController = value; }
-    }
+   
+    
     
     private void Awake()
     {

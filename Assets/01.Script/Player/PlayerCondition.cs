@@ -63,18 +63,19 @@ public class PlayerCondition : MonoBehaviour
         health.curValue = health.maxValue;
     }
 
-    public void GetInstantItem(float condition)
+    public void GetInstantItem(Condition condition,float time)
     {
-        StartCoroutine(InstantEffect(condition));
+        StartCoroutine(InstantEffect(condition,time));
     }
 
-    IEnumerator InstantEffect(float value)
+    IEnumerator InstantEffect(Condition value, float time)
     {
-        float defaultvalue = value;
-        value *= 2;
-        yield return new WaitForSeconds(10);
-        value = defaultvalue;
+       
+        value.passiveValue *= 2; Debug.Log("증가");
         
+        yield return new WaitForSeconds(time);
+        value.passiveValue /= 2;Debug.Log("원상복구");
+
     }
 
    

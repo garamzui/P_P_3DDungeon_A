@@ -40,9 +40,9 @@ public class PlayerController : MonoBehaviour
 {
     [Header("움직임관련스탯")] 
     [SerializeField] private float moveSpeed;
-    public float MoveSpeed {get { return moveSpeed; }}
+    
     [SerializeField] private float jumpPower;
-    public float JumpPower {get {return jumpPower;}}
+   
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
 
@@ -201,35 +201,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void HasteMoveSpeed()
+   
+
+    
+
+    public void SuperJumpScarffold()
     {
-        StartCoroutine(Haste());
+        rb.AddForce(Vector2.up * 15f, ForceMode.Impulse);
     }
 
+
+    public void GetInstantItem(IEnumerator a)
+    {
+        StartCoroutine(a);
+    }
+
+    
     public IEnumerator Haste()
     {
         moveSpeed += 5f;
         yield return new WaitForSeconds(5);
         moveSpeed -= 5f;
     }
-
-    public void SuperJump()
-    {
-        rb.AddForce(Vector2.up * 15f, ForceMode.Impulse);
-    }
-    
-    
-    public void GetInstantItem(float value)
-    {
-        StartCoroutine(InstantEffect(value));
-    }
-
-    IEnumerator InstantEffect(float value)
-    {
-        float defaultvalue = value;
-        value *= 2;
-        yield return new WaitForSeconds(10);
-        value = defaultvalue;
-    }
    
+    public IEnumerator SuperJump()
+    {
+        jumpPower += 5f;
+        yield return new WaitForSeconds(5);
+        jumpPower -= 5f;
+    }
 }

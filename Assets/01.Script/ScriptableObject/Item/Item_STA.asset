@@ -17,6 +17,7 @@ MonoBehaviour:
     \uAC10\uC18C \uC5C6\uC74C"
   type: 2
   icon: {fileID: 0}
+  buffTime: 10
   dropPrefab: {fileID: 5276009927034304442, guid: 2a9c57e683f6fb94c81e8043a83e2c6b, type: 3}
   canStack: 0
   maxStackAmount: 0

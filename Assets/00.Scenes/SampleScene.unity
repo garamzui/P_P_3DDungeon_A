@@ -1754,7 +1754,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerController: {fileID: 0}
 --- !u!224 &1440780604 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1366382075411481021, guid: d38b9e9af91650a44a9044878ffefdd2, type: 3}
@@ -2144,7 +2143,7 @@ MonoBehaviour:
   curValue: 100
   startValue: 100
   maxValue: 100
-  passiveValue: 0
+  passiveValue: 2
   consumeValue: 0
   uiBar: {fileID: 978861065}
 --- !u!224 &1867529477 stripped
