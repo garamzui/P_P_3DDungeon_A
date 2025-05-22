@@ -39,11 +39,10 @@ public class CharacterState
 }*/
 public class PlayerController : MonoBehaviour
 {
-    [Header("움직임관련스탯")] 
-    [SerializeField] private float moveSpeed;
-    
+    [Header("움직임관련스탯")] [SerializeField] private float moveSpeed;
+
     [SerializeField] private float jumpPower;
-   
+
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
 
@@ -71,6 +70,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<MyAnimation>();
         pCondition = GetComponent<PlayerCondition>();
+        interaction = GetComponent<Interaction>();
     }
 
     private void Start()
@@ -140,7 +140,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded() && !stopJump && (pCondition.stamina.curValue >= -pCondition.stamina.consumeValue)) 
+        if (context.phase == InputActionPhase.Started && IsGrounded() && !stopJump &&
+            (pCondition.stamina.curValue >= -pCondition.stamina.consumeValue))
         {
             StartCoroutine(Jump());
         }
@@ -209,20 +210,20 @@ public class PlayerController : MonoBehaviour
             switch (context.control.name)
             {
                 case "1":
-                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name)-1   );
+                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name) - 1);
                     break;
                 case "2":
-                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name)-1   );
+                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name) - 1);
                     break;
                 case "3":
-                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name)-1   );
+                    PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name) - 1);
                     break;
-                
-                
-                
+
+
+
             }
 
-            
+
         }
     }
 
@@ -238,20 +239,21 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine(corutine);
     }
+
     public void UseConsumableItem(IEnumerator corutine)
     {
-        
+
         StartCoroutine(corutine);
-        
+
     }
-    
+
     public IEnumerator Haste()
     {
         moveSpeed += 5f;
         yield return new WaitForSeconds(5);
         moveSpeed -= 5f;
     }
-   
+
     public IEnumerator SuperJump()
     {
         jumpPower += 5f;
@@ -262,9 +264,86 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "JumpScar")
-            rb.AddForce(Vector2.up * jumpPower*2.5f, ForceMode.Impulse);
+            rb.AddForce(Vector2.up * jumpPower * 2.5f, ForceMode.Impulse);
     }
 
-    
-    //tps전환 시 레이 길이, 카메라 컨테이너 위치 바꾸기
+    bool isAtk = false;
+
+    public void OnAttackmotion(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && !isAtk)
+        {
+            StartCoroutine(Attack());
+        }
+
+    }
+
+    IEnumerator Attack()
+    {
+        isAtk = true;
+        anim.TriggerAttack();
+        Debug.Log("공격");
+        yield return new WaitForSeconds(0.7f);
+        isAtk = false;
+    }
+
+    public bool isTPS = false;
+    Interaction interaction;
+
+    public void OnChangeView(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && !isTPS && !isback)
+        {
+            cameraContainer.transform.localPosition = new Vector3(0, 1.5f, -2.5f);
+            isTPS = true;
+            interaction.CheckDistanceChange(isTPS);
+        }
+        else if (context.phase == InputActionPhase.Started && isTPS && !isback)
+        {
+            cameraContainer.transform.localPosition = new Vector3(0, 0.63f, 0.2f);
+            isTPS = false;
+            interaction.CheckDistanceChange(isTPS);
+        }
+
+    }
+
+    bool isback = false;
+
+    public void OnTopView(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && isTPS)
+        {
+            cameraContainer.transform.localPosition = new Vector3(0, 5f, -2.5f);
+
+            isback = true;
+
+        }
+        else if (context.phase == InputActionPhase.Canceled && isTPS)
+        {
+            cameraContainer.transform.localPosition = new Vector3(0, 1.5f, -2.5f);
+            isback = false;
+
+        }
+
+    }
+ bool isRun = false;
+    public void OnRunning(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started )
+        {
+            moveSpeed += 5f;
+
+           isRun = true;
+        anim.SetRun(isRun);
+        }
+        else if (context.phase == InputActionPhase.Canceled )
+        {
+            moveSpeed -= 5f;
+
+            isRun = false;
+            anim.SetRun(isRun);
+
+        }
+
+    }
 }

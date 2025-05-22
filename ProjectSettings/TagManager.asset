@@ -11,6 +11,7 @@ TagManager:
   - C_hp
   - C_sta
   - C_speed
+  - JumpScar
   layers:
   - Default
   - TransparentFX

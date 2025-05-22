@@ -9,7 +9,8 @@ public class Interaction : MonoBehaviour
 {
     public float checkRate = 0.05f;
     private float lastCheckTime;
-    public float maxCheckDistance;
+    public float maxCheckDistance ;
+  
     public LayerMask layerMask;
 
     public GameObject curInteractableGameObject;
@@ -105,4 +106,15 @@ public class Interaction : MonoBehaviour
         promptText.gameObject.SetActive(false);
         promptText.text = string.Empty;
     }
+
+    public void CheckDistanceChange(bool view)
+    {
+        if (view)
+            maxCheckDistance *=2;
+        else
+            maxCheckDistance /= 2;
+
+    }
+    
+    
 }

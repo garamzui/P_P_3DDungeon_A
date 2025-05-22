@@ -28,4 +28,15 @@ public class MyAnimation : MonoBehaviour
         animator.SetBool("IsFall",isFall);
     }
 
+    public void TriggerAttack()
+    {
+        string trigger = "Atk"+Random.Range(1,4).ToString();
+        animator.SetTrigger(trigger);
+    }
+
+public void SetRun(bool isRun)
+{
+    animator.SetBool("IsRun", isRun);
+}
+
 }

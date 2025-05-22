@@ -22,11 +22,10 @@ public class UIQuickBoard : MonoBehaviour
     public Transform slotPanel;
     
     
-    private PlayerController controller;
-    private PlayerCondition condition;
+    
 
     ItemData data;
-    int selectedItemIndex = 0;
+    
 
     int curEquipIndex;
 
@@ -35,8 +34,7 @@ public class UIQuickBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = PlayerManager.Instance.Player.controller;
-        condition = PlayerManager.Instance.Player.condition;
+        
         PlayerManager.Instance.Player.addItem += AddItem;
         slots = new ItemSlot[slotPanel.childCount];
 
