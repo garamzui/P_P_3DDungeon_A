@@ -12,6 +12,7 @@ TagManager:
   - C_sta
   - C_speed
   - JumpScar
+  - MoveScaffold
   layers:
   - Default
   - TransparentFX

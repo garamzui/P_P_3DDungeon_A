@@ -16,11 +16,23 @@ public class ItemObject : MonoBehaviour, IInteractable
     public ItemData data;
 
     
+    public float moveSpeed;
+    public float MaxX;
+    public float MinX;
+   Rigidbody rb;
+   private Transform tf;
 
-    private void Start()
+   private void FixedUpdate()
+   {
+       MoveScaffold();
+   }
+
+   private void Start()
     {
         FindObjectOfType<PlayerCondition>();
         FindObjectOfType<PlayerController>();
+        rb = GetComponent<Rigidbody>();
+        tf = GetComponent<Transform>();
     }
 
     public string GetInteractPrompt()
@@ -66,10 +78,32 @@ public class ItemObject : MonoBehaviour, IInteractable
                 PlayerManager.Instance.Player.controller.GetInstantItem(coroutine);
             }
 
-           
-            
             Destroy(gameObject);
         }
     }
 
+
+    private void MoveScaffold()
+    { 
+        if (this.CompareTag("MoveScaffold"))
+        {
+            Vector3 move;
+            
+            if (tf.localPosition.x <MinX)
+            {
+                move = rb.position +Vector3.right * moveSpeed * Time.fixedDeltaTime;
+                rb.MovePosition(move);
+            }
+            else if (tf.localPosition.x > MaxX)
+            {
+                move = rb.position +Vector3.left * moveSpeed * Time.fixedDeltaTime;
+                rb.MovePosition(move);
+            }
+        }
+    }
+
+    
+    
+    
+    
 }
