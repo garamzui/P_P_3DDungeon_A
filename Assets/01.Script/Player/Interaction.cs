@@ -56,7 +56,7 @@ public class Interaction : MonoBehaviour
             else if (Physics.Raycast(ray, out hit, climbCheckDistance, climbLayerMask))
             {
                 promptText.gameObject.SetActive(true);
-                promptText.text = "벽타기 쌉가능";
+                promptText.text = "벽타기 쌉가능 \t마우스 우클릭유지";
                 isClimbAble =  true;
             }
             else

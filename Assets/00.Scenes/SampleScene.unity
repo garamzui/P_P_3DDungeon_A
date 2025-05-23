@@ -180,8 +180,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBCBD\uD0C0\uAE30 : Ctrl(\uC720\uC9C0) - \uBBF8\uAD6C\uD604\n\uC5F0\uCD9C\uACF5\uACA9\uBAA8\uC158
-    :L_Mouse\n\uBB3C\uAC74 \uC7A1\uAE30 : R_Mouse-\uBBF8\uAD6C\uD604\n"
+  m_text: "\uBCBD\uD0C0\uAE30 : R_Mouse(\uC720\uC9C0)\n\uC5F0\uCD9C\uACF5\uACA9\uBAA8\uC158
+    :L_Mouse\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5df7d2d6c33fcf04fa9a4538f9891846, type: 2}
   m_sharedMaterial: {fileID: 8108142148915471372, guid: 5df7d2d6c33fcf04fa9a4538f9891846, type: 2}
