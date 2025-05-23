@@ -2549,7 +2549,7 @@ Transform:
   m_GameObject: {fileID: 2085648072059608411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4, y: 5.51, z: 1.8}
+  m_LocalPosition: {x: -23.58, y: 0.98, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3751,6 +3751,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 46f3501b-f5a6-4aa4-96f6-33d333202ad5
     m_ActionName: Player/OnRun[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18569040-4cbc-4fb3-af54-fc082c65fc24
+    m_ActionName: Player/ReSpwan[/Keyboard/t]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d53a5ee-ff80-4fac-ac78-433fa1dea009
+    m_ActionName: Player/Grab[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c06f5299-80dd-44f3-823f-9ee345502ab1
+    m_ActionName: Player/Climb[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4052,7 +4064,7 @@ Transform:
   m_GameObject: {fileID: 2472650602223819817}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.443, z: 5.53}
+  m_LocalPosition: {x: -26.05, y: 0.443, z: 5.53}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
