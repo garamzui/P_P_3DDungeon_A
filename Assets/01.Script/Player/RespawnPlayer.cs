@@ -5,20 +5,28 @@ using UnityEngine;
 
 public class RespawnPlayer : MonoBehaviour
 {
+   public static RespawnPlayer instance{ get; private set; }
+     
+    
     public GameObject player;
     private void Awake()
     {
-     player.transform.position = transform.position;
-        
+        if (instance == null)
+        {
+            instance = this;
+            
+        }
+        else
+        {
+            Destroy(gameObject); // 중복 방지
+        }
+
     }
-    void OnEnable()
+
+    public void Respawn()
     {
-        Debug.Log("오브젝트가 SetActive(true)로 활성화될 때 호출됨!");
+        player.transform.position = transform.position;
+        PlayerManager.Instance.player.condition.Resurrection();
     }
-    
-    private void Start()
-    {
-        //PlayerManager.Instance.Player.condition.Resurrection();
-        
-    }
+
 }

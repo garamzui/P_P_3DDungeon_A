@@ -3,7 +3,7 @@ using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.UI;
 #region MyRegion
 
 /*public enum STATE
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
-
+    
 
     [Header("Look")] public Transform cameraContainer;
     public float minXLook;
@@ -384,6 +384,27 @@ public class PlayerController : MonoBehaviour
                 isRun = false;
                 anim.SetRun(isRun);
             }
+        }
+    }
+    
+    public void GoToReSpawn(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started )
+        {
+            RespawnPlayer.instance.Respawn();
+        }
+    }
+
+    public GameObject manualBoard;
+    public void ManualBoard(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started )
+        {
+            manualBoard.SetActive(true);
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            manualBoard.SetActive(false);
         }
     }
 }
