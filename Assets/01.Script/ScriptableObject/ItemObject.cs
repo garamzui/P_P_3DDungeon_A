@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using UnityEngine;
 public interface IInteractable
 {
     public string GetInteractPrompt();
-    
+
     public void OnInteract();
 }
 
@@ -15,19 +14,19 @@ public class ItemObject : MonoBehaviour, IInteractable
 {
     public ItemData data;
 
-    
+
     public float moveSpeed;
     public float MaxX;
     public float MinX;
-   Rigidbody rb;
-   private Transform tf;
+    Rigidbody rb;
+    private Transform tf;
 
-   private void FixedUpdate()
-   {
-       MoveScaffold();
-   }
+    private void FixedUpdate()
+    {
+        MoveScaffold();
+    }
 
-   private void Start()
+    private void Start()
     {
         FindObjectOfType<PlayerCondition>();
         FindObjectOfType<PlayerController>();
@@ -40,15 +39,16 @@ public class ItemObject : MonoBehaviour, IInteractable
         string str = $"{data.displayName}\n{data.description}";
         return str;
     }
+
     public void OnInteract()
     {
-        
         PlayerManager.Instance.Player.itemData = data;
         PlayerManager.Instance.Player.addItem?.Invoke();
         Destroy(gameObject);
     }
+
 // 밸류 못가져오고 있으므로 다시 보기 
-    private void OnTriggerEnter(Collider other )
+    private void OnTriggerEnter(Collider other)
     {
         Condition Condition;
         float Time;
@@ -59,13 +59,13 @@ public class ItemObject : MonoBehaviour, IInteractable
             {
                 Condition = PlayerManager.Instance.Player.condition.health;
                 Time = data.buffTime;
-                PlayerManager.Instance.Player.condition.GetInstantItem(Condition,Time);
+                PlayerManager.Instance.Player.condition.GetInstantItem(Condition, Time);
             }
             else if (CompareTag("STA"))
             {
                 Condition = PlayerManager.Instance.Player.condition.stamina;
                 Time = data.buffTime;
-                PlayerManager.Instance.Player.condition.GetInstantItem(Condition,Time);
+                PlayerManager.Instance.Player.condition.GetInstantItem(Condition, Time);
             }
             else if (CompareTag("JUMP"))
             {
@@ -84,26 +84,23 @@ public class ItemObject : MonoBehaviour, IInteractable
 
 
     private void MoveScaffold()
-    { 
+    {
         if (this.CompareTag("MoveScaffold"))
         {
             Vector3 move;
-            
-            if (tf.localPosition.x <MinX)
+
+            if (tf.localPosition.x < MinX)
             {
-                move = rb.position +Vector3.right * moveSpeed * Time.fixedDeltaTime;
+                move = rb.position + Vector3.right * moveSpeed * Time.fixedDeltaTime;
                 rb.MovePosition(move);
             }
             else if (tf.localPosition.x > MaxX)
             {
-                move = rb.position +Vector3.left * moveSpeed * Time.fixedDeltaTime;
+                move = rb.position + Vector3.left * moveSpeed * Time.fixedDeltaTime;
                 rb.MovePosition(move);
             }
         }
     }
 
-    
-    
-    
-    
+   
 }

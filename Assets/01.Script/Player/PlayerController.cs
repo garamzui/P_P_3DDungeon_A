@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Globalization;
 using Unity.VisualScripting;
@@ -93,7 +94,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move();
+        if (!isClimb)
+        {
+            Move();
+        }
+        else if (isClimb)
+        {
+            Climb();
+        }
 
         if (rb.velocity.y != 0f && !IsGrounded())
         {
@@ -136,7 +144,7 @@ public class PlayerController : MonoBehaviour
         body.eulerAngles += new Vector3(-mouseDelta.y * LookSensitivity, 0, 0);
     }
 
-    public void OnLoook(InputAction.CallbackContext context)
+    public void OnLook(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
@@ -149,6 +157,13 @@ public class PlayerController : MonoBehaviour
         rb.velocity = move;
     }
 
+    public void Climb()
+    {
+        Vector3 move = transform.up * curMovementInput.y + transform.right * curMovementInput.x;
+        move *= moveSpeed;
+        move.z = rb.velocity.z;
+        rb.velocity = move;
+    }
 
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -161,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
 
     bool isJump = false;
-    private bool wasbeforeJumpRunning = false;
+    private bool wasRunningbeforeJump = false;
     public IEnumerator Jump()
     {
         isJump = true;
@@ -177,7 +192,7 @@ public class PlayerController : MonoBehaviour
             isRun = false;
 
             anim.SetRun(isRun);
-            wasbeforeJumpRunning = true;
+            wasRunningbeforeJump = true;
         }
 
         rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
@@ -188,7 +203,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
        
         isJump = false;
-        if (wasbeforeJumpRunning)
+        if (wasRunningbeforeJump)
         {   yield return new WaitForSeconds(1.2f);
             moveSpeed -= 5f;
             if (runAction.phase == InputActionPhase.Performed)
@@ -198,7 +213,7 @@ public class PlayerController : MonoBehaviour
                 isRun = true;
 
                 anim.SetRun(isRun);
-              wasbeforeJumpRunning = false;
+              wasRunningbeforeJump = false;
             }
          
             
@@ -265,20 +280,20 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void SuperJumpScarffold()
+    public void SuperJumpScaffold()
     {
         rb.AddForce(Vector2.up * 15f, ForceMode.Impulse);
     }
 
 
-    public void GetInstantItem(IEnumerator corutine)
+    public void GetInstantItem(IEnumerator coroutine)
     {
-        StartCoroutine(corutine);
+        StartCoroutine(coroutine);
     }
 
-    public void UseConsumableItem(IEnumerator corutine)
+    public void UseConsumableItem(IEnumerator coroutine)
     {
-        StartCoroutine(corutine);
+        StartCoroutine(coroutine);
     }
 
     public IEnumerator Haste()
@@ -328,13 +343,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnChangeView(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !isTPS && !isback)
+        if (context.phase == InputActionPhase.Started && !isTPS && !isTop)
         {
             cameraContainer.transform.localPosition = new Vector3(0, 1.5f, -2.5f);
             isTPS = true;
             interaction.CheckDistanceChange(isTPS);
         }
-        else if (context.phase == InputActionPhase.Started && isTPS && !isback)
+        else if (context.phase == InputActionPhase.Started && isTPS && !isTop)
         {
             cameraContainer.transform.localPosition = new Vector3(0, 0.63f, 0.2f);
             isTPS = false;
@@ -342,7 +357,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    bool isback = false;
+    bool isTop = false;
 
     public void OnTopView(InputAction.CallbackContext context)
     {
@@ -350,12 +365,12 @@ public class PlayerController : MonoBehaviour
         {
             cameraContainer.transform.localPosition = new Vector3(0, 5f, -2.5f);
 
-            isback = true;
+            isTop = true;
         }
         else if (context.phase == InputActionPhase.Canceled && isTPS)
         {
             cameraContainer.transform.localPosition = new Vector3(0, 1.5f, -2.5f);
-            isback = false;
+            isTop = false;
         }
     }
 
@@ -405,6 +420,46 @@ public class PlayerController : MonoBehaviour
         else if (context.phase == InputActionPhase.Canceled)
         {
             manualBoard.SetActive(false);
+        }
+    }
+
+    private bool isClimb = false;
+    public void OnClimb(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && isClimbAble)
+        {
+           isClimb = true;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            isClimb = false;
+        }
+    }
+
+    private bool isClimbAble = false;
+    void OnCollisionEnter(Collision other)
+    {
+        if (this.CompareTag("ClimbCheck"))
+        {
+            if (other.collider.tag == "Climb")
+            {
+                Debug.Log("벽에 닿았다.");
+                isClimbAble = true;
+            }
+
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (this.CompareTag("ClimbCheck"))
+        {
+            if (other.collider.tag == "Climb")
+            {
+                Debug.Log("벽에서 떨어졌다");
+                isClimbAble = false;
+            }
+
         }
     }
 }

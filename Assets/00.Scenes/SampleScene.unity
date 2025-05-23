@@ -180,8 +180,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBCBD\uD0C0\uAE30 : Ctrl(\uC720\uC9C0)\n\uC5F0\uCD9C\uACF5\uACA9\uBAA8\uC158
-    :L_Mouse\n\uBB3C\uAC74 \uC7A1\uAE30 : R_Mouse\n"
+  m_text: "\uBCBD\uD0C0\uAE30 : Ctrl(\uC720\uC9C0) - \uBBF8\uAD6C\uD604\n\uC5F0\uCD9C\uACF5\uACA9\uBAA8\uC158
+    :L_Mouse\n\uBB3C\uAC74 \uC7A1\uAE30 : R_Mouse-\uBBF8\uAD6C\uD604\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5df7d2d6c33fcf04fa9a4538f9891846, type: 2}
   m_sharedMaterial: {fileID: 8108142148915471372, guid: 5df7d2d6c33fcf04fa9a4538f9891846, type: 2}
@@ -562,6 +562,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 1598283618}
   stamina: {fileID: 1311544921}
+--- !u!1 &402069352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3861927960067258277, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+  m_PrefabInstance: {fileID: 1326266535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &402069357
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402069352}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &445137011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -636,7 +668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &543611294
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2108,6 +2140,82 @@ MonoBehaviour:
   passiveValue: 3.5
   consumeValue: -10
   uiBar: {fileID: 862142405}
+--- !u!1001 &1326266535
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -25.81879
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.008832
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701930426781528997, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861927960067258277, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_Name
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861927960067258277, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_TagString
+      value: Climb
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398995247547599254, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d6a3b1edfe908044bbc764ed68e3d8d, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3861927960067258277, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 402069357}
+  m_SourcePrefab: {fileID: 100100000, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
 --- !u!114 &1343383540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2570,6 +2678,59 @@ MonoBehaviour:
   passiveValue: 2
   consumeValue: 0
   uiBar: {fileID: 978861065}
+--- !u!1 &1599815114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1599815115}
+  - component: {fileID: 1599815116}
+  m_Layer: 0
+  m_Name: ClimbCheck
+  m_TagString: ClimbCheck
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1599815115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599815114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.34, z: 0.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7067489847151027507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1599815116
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599815114}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5691996, z: 1}
+  m_Center: {x: 0, y: 0.09477517, z: 0}
 --- !u!1 &1684576533
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,7 +4484,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7794409804948254067}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnLoook
+        m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4448,7 +4609,19 @@ MonoBehaviour:
     m_ActionId: 46f3501b-f5a6-4aa4-96f6-33d333202ad5
     m_ActionName: Player/OnRun[/Keyboard/leftShift]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7794409804948254067}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: GoToReSpawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 18569040-4cbc-4fb3-af54-fc082c65fc24
     m_ActionName: Player/ReSpwan[/Keyboard/t]
   - m_PersistentCalls:
@@ -4456,9 +4629,37 @@ MonoBehaviour:
     m_ActionId: 2d53a5ee-ff80-4fac-ac78-433fa1dea009
     m_ActionName: Player/Grab[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7794409804948254067}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnClimb
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c06f5299-80dd-44f3-823f-9ee345502ab1
     m_ActionName: Player/Climb[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7794409804948254067}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ManualBoard
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 19e789dc-cc7b-4a61-b606-0f67b6975938
+    m_ActionName: Player/Manual[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4739,7 +4940,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 759
+    m_Bits: 1783
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4766,6 +4967,7 @@ Transform:
   m_Children:
   - {fileID: 7123044212641484850}
   - {fileID: 7784640997849202090}
+  - {fileID: 1599815115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7123044212641484850
@@ -5029,6 +5231,7 @@ MonoBehaviour:
   LookSensitivity: 0.1
   body: {fileID: 1969433360645088341}
   isTPS: 0
+  manualBoard: {fileID: 543611293}
 --- !u!114 &7794409804948254068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5317,3 +5520,4 @@ SceneRoots:
   - {fileID: 820530187}
   - {fileID: 786494126}
   - {fileID: 955503157}
+  - {fileID: 1326266535}

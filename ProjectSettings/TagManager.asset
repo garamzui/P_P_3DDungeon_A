@@ -13,6 +13,8 @@ TagManager:
   - C_speed
   - JumpScar
   - MoveScaffold
+  - ClimbCheck
+  - Climb
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - Ground
   - NoCam
   - Interactable
-  - 
+  - Climb
   - 
   - 
   - 
