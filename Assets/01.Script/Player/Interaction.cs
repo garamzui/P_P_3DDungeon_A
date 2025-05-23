@@ -10,9 +10,10 @@ public class Interaction : MonoBehaviour
     public float checkRate = 0.05f;
     private float lastCheckTime;
     public float maxCheckDistance ;
-  
+  public float climbCheckDistance;
     public LayerMask layerMask;
-
+    public LayerMask climbLayerMask;
+    public bool isClimbAble = false;
     public GameObject curInteractableGameObject;
     private IInteractable curInteractable;
 
@@ -52,17 +53,24 @@ public class Interaction : MonoBehaviour
                     SetPromptText();
                 }
             }
+            else if (Physics.Raycast(ray, out hit, climbCheckDistance, climbLayerMask))
+            {
+                promptText.gameObject.SetActive(true);
+                promptText.text = "벽타기 쌉가능";
+                isClimbAble =  true;
+            }
             else
             {
                 curInteractableGameObject = null;
                 curInteractable = null;
                 promptText.gameObject.SetActive(false);
+                isClimbAble = false;
             }
         }
 
     }
 
-   
+  
 
     private void SetPromptText()
     {
@@ -114,11 +122,19 @@ public class Interaction : MonoBehaviour
     public void CheckDistanceChange(bool view)
     {
         if (view)
-            maxCheckDistance *=2;
+        {
+            maxCheckDistance *= 2;
+            climbCheckDistance += 3;
+        }
         else
+        {
             maxCheckDistance /= 2;
+            climbCheckDistance -= 3;
+        }
 
+        
     }
-    
-    
+
 }
+    
+    

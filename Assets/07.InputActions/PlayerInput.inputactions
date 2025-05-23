@@ -96,15 +96,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Grab",
-                    "type": "Button",
-                    "id": "2d53a5ee-ff80-4fac-ac78-433fa1dea009",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Climb",
                     "type": "Button",
                     "id": "c06f5299-80dd-44f3-823f-9ee345502ab1",
@@ -302,19 +293,8 @@
                 },
                 {
                     "name": "",
-                    "id": "300efe6e-1064-4510-bca0-15e7584cc5da",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Grab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "33f2e5ea-33fe-4bbf-8e18-117bdbc700f0",
-                    "path": "<Keyboard>/ctrl",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

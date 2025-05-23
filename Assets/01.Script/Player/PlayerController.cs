@@ -426,7 +426,7 @@ public class PlayerController : MonoBehaviour
     private bool isClimb = false;
     public void OnClimb(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && isClimbAble)
+        if (context.phase == InputActionPhase.Started && interaction.isClimbAble)
         {
            isClimb = true;
         }
@@ -436,30 +436,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool isClimbAble = false;
-    void OnCollisionEnter(Collision other)
-    {
-        if (this.CompareTag("ClimbCheck"))
-        {
-            if (other.collider.tag == "Climb")
-            {
-                Debug.Log("벽에 닿았다.");
-                isClimbAble = true;
-            }
-
-        }
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        if (this.CompareTag("ClimbCheck"))
-        {
-            if (other.collider.tag == "Climb")
-            {
-                Debug.Log("벽에서 떨어졌다");
-                isClimbAble = false;
-            }
-
-        }
-    }
+    
+    
+          
 }

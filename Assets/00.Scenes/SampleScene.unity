@@ -2204,6 +2204,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Climb
       objectReference: {fileID: 0}
+    - target: {fileID: 3861927960067258277, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7398995247547599254, guid: ffd14feed279d7c4caebfc00690225ad, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5246,9 +5250,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkRate: 0.05
   maxCheckDistance: 3
+  climbCheckDistance: 0.2
   layerMask:
     serializedVersion: 2
     m_Bits: 512
+  climbLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  isClimbAble: 0
   curInteractableGameObject: {fileID: 0}
   promptText: {fileID: 1204463108}
 --- !u!1 &7933445267143445973
