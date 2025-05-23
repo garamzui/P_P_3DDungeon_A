@@ -39,4 +39,13 @@ public void SetRun(bool isRun)
     animator.SetBool("IsRun", isRun);
 }
 
+public void SetClimb(bool isClimb)
+{
+    animator.SetBool("IsClimb", isClimb);
+}
+
+public void SetClimming(bool isClimming)
+{
+    animator.SetBool("IsClimming", isClimming);
+}
 }

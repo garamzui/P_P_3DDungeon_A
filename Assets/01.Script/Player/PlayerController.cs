@@ -124,12 +124,18 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Performed)
         {
             curMovementInput = context.ReadValue<Vector2>();
-            anim.SetMove(true);
+           if(!isClimb)
+           { anim.SetMove(true);}
+           else if (isClimb)
+           {anim.SetClimming(true);}
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
-            anim.SetMove(false);
+            if(!isClimb)
+            { anim.SetMove(false);}
+            else if (isClimb)
+            {anim.SetClimming(false);}
         }
     }
 
@@ -429,10 +435,12 @@ public class PlayerController : MonoBehaviour
         if (context.phase == InputActionPhase.Started && interaction.isClimbAble)
         {
            isClimb = true;
+           anim.SetClimb(true);
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             isClimb = false;
+            anim.SetClimb(false);
         }
     }
 
