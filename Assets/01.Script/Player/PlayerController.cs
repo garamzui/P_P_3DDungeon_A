@@ -1,7 +1,10 @@
 using System.Collections;
+using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+#region MyRegion
 
 /*public enum STATE
 {
@@ -10,7 +13,8 @@ using UnityEngine.InputSystem;
     JUMP,
     GROUND,
     FALL,
-    RUN
+    RUN,
+    Die
 
 }
 public class CharacterState
@@ -37,6 +41,9 @@ public class CharacterState
 
     }
 }*/
+
+#endregion
+
 public class PlayerController : MonoBehaviour
 {
     [Header("움직임관련스탯")] [SerializeField] private float moveSpeed;
@@ -62,6 +69,8 @@ public class PlayerController : MonoBehaviour
     private MyAnimation anim;
     private Vector2 inputDirection;
 
+    private PlayerInput playerInput;
+    private InputAction runAction;
 
     private PlayerCondition pCondition;
 
@@ -71,6 +80,8 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<MyAnimation>();
         pCondition = GetComponent<PlayerCondition>();
         interaction = GetComponent<Interaction>();
+        playerInput = GetComponent<PlayerInput>();
+        runAction = playerInput.actions["OnRun"];
     }
 
     private void Start()
@@ -83,13 +94,14 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        if (rb.velocity.y != 0f)
+
+        if (rb.velocity.y != 0f && !IsGrounded())
         {
-            anim.SetFall(!IsGrounded());
+            anim.SetFall(true);
         }
         else
         {
-            return;
+            anim.SetFall(false);
         }
     }
 
@@ -140,27 +152,57 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGrounded() && !stopJump &&
+        if (context.phase == InputActionPhase.Started && IsGrounded() && !isJump &&
             (pCondition.stamina.curValue >= -pCondition.stamina.consumeValue))
         {
             StartCoroutine(Jump());
         }
     }
 
-    bool stopJump = false;
 
+    bool isJump = false;
+    private bool wasbeforeJumpRunning = false;
     public IEnumerator Jump()
     {
-        stopJump = true;
+        isJump = true;
+
+
         anim.TriggerJump();
         rb.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.3f);
-        pCondition.StaminaForJump();
-        anim.SetFall(true);
-        rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-        yield return new WaitForSeconds(0.3f);
+        if (isRun)
+        {
+            /*moveSpeed -= 5f;*/
+            Debug.Log("달리기 멈춤");
+            isRun = false;
 
-        stopJump = false;
+            anim.SetRun(isRun);
+            wasbeforeJumpRunning = true;
+        }
+
+        rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            pCondition.StaminaForJump();
+        
+
+
+        yield return new WaitForSeconds(0.3f);
+       
+        isJump = false;
+        if (wasbeforeJumpRunning)
+        {   yield return new WaitForSeconds(1.2f);
+            moveSpeed -= 5f;
+            if (runAction.phase == InputActionPhase.Performed)
+            {
+                moveSpeed += 5f;
+                Debug.Log("달리기 시작");
+                isRun = true;
+
+                anim.SetRun(isRun);
+              wasbeforeJumpRunning = false;
+            }
+         
+            
+        }
     }
 
     //오브젝트의 저런 방향, 위치를 계산하는 방법을 연습해야됨
@@ -218,15 +260,9 @@ public class PlayerController : MonoBehaviour
                 case "3":
                     PlayerManager.Instance.Player.condition.UseConsumableItem(int.Parse(context.control.name) - 1);
                     break;
-
-
-
             }
-
-
         }
     }
-
 
 
     public void SuperJumpScarffold()
@@ -242,9 +278,7 @@ public class PlayerController : MonoBehaviour
 
     public void UseConsumableItem(IEnumerator corutine)
     {
-
         StartCoroutine(corutine);
-
     }
 
     public IEnumerator Haste()
@@ -271,11 +305,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttackmotion(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && !isAtk)
+        if (IsGrounded() && !isRun)
         {
-            StartCoroutine(Attack());
+            if (context.phase == InputActionPhase.Started && !isAtk)
+            {
+                StartCoroutine(Attack());
+            }
         }
-
     }
 
     IEnumerator Attack()
@@ -304,7 +340,6 @@ public class PlayerController : MonoBehaviour
             isTPS = false;
             interaction.CheckDistanceChange(isTPS);
         }
-
     }
 
     bool isback = false;
@@ -316,34 +351,39 @@ public class PlayerController : MonoBehaviour
             cameraContainer.transform.localPosition = new Vector3(0, 5f, -2.5f);
 
             isback = true;
-
         }
         else if (context.phase == InputActionPhase.Canceled && isTPS)
         {
             cameraContainer.transform.localPosition = new Vector3(0, 1.5f, -2.5f);
             isback = false;
-
         }
-
     }
- bool isRun = false;
+
+    bool isRun = false;
+
     public void OnRunning(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started )
+        if (IsGrounded())
         {
-            moveSpeed += 5f;
+            if (context.phase == InputActionPhase.Started && !isRun && !isJump)
+            {
+                moveSpeed += 5f;
+                Debug.Log("달리기 시작");
+                isRun = true;
+                anim.SetRun(isRun);
+            }
+            else if (context.phase == InputActionPhase.Canceled && isRun)
+            {
+                if (isJump)
+                {
+                    return;
+                }
 
-           isRun = true;
-        anim.SetRun(isRun);
+                moveSpeed -= 5f;
+                Debug.Log("달리기 멈춤");
+                isRun = false;
+                anim.SetRun(isRun);
+            }
         }
-        else if (context.phase == InputActionPhase.Canceled )
-        {
-            moveSpeed -= 5f;
-
-            isRun = false;
-            anim.SetRun(isRun);
-
-        }
-
     }
 }
